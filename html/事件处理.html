@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<style type="text/css">
+		
+	</style>
+	<body>
+		<div id="app">
+			{{message}}
+			<button v-on:click="warn('Form cannot be submitted yet.')">
+			  Submit
+			</button>
+			<div @click="test(11,$event)">22</div>
+			<!-- 阻止单击事件继续传播 -->
+			<a v-on:click.stop="doThis">阻止单击事件继续传播</a>
+			
+			<!-- 提交事件不再重载页面 -->
+			<form v-on:submit.prevent="onSubmit">提交事件不再重载页面</form>
+			
+			<!-- 修饰符可以串联 -->
+			<a v-on:click.stop.prevent="doThat">修饰符可以串联</a>
+			
+			<!-- 只有修饰符 -->
+			<form v-on:submit.prevent>只有修饰符</form>
+			
+			<!-- 添加事件监听器时使用事件捕获模式 -->
+			<!-- 即内部元素触发的事件先在此处理，然后才交由内部元素进行处理 -->
+			<div v-on:click.capture="doThis">...</div>
+			
+			<!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+			<!-- 即事件不是从内部元素触发的 -->
+			<div v-on:click.self="doThat">...</div>
+			
+			<!--绑定按键函数 -->
+			<input v-on:keyup.enter="enter" @click="test4">
+			
+			<br />
+			<hr />
+			<div style="background-color: #008000;width: 400px;height: 400px;" @click="test1">
+				<!-- 防止冒泡-->
+				<div style="background-color: aquamarine;width: 200px;height: 200px;" @click.stop="test2"></div>
+			</div>
+			
+			<hr />
+			<a href="http://baidu.com" @click.prevent="test3">去百度吧</a>
+		</div>
+		<div id="app2">
+			 <span v-bind:title="message">
+			    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+			  </span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const vm=new Vue({
+			el:"#app",
+			data:{
+				message:"hello vue!"
+			},
+			methods:{
+				warn: function (message, event) {
+				    // 现在我们可以访问原生事件对象
+				    if (event) {
+				      event.preventDefault()
+				    }
+				    alert(message)
+				  },
+				doThis:function() {
+					 alert("阻止单击事件继续传播");
+				},
+				test:function(msg,event) {
+					alert(msg+" "+event.target.innerHTML)
+				},
+				enter() {
+					console.log("--")
+				},
+				test1(){
+					alert("test1");
+				},
+				test2() {
+					alert("test2");
+				},
+				test3() {
+					alert("去百度吧！")
+				},
+				test4(event) {
+					if(event.keyCode === 13) {
+						alert(enter)
+					}
+				}
+			}
+		});
+		const vm1=new Vue({
+			el:"#app2",
+			data:{
+				message: '页面加载于 ' + new Date().toLocaleString()
+			}
+		});
+	</script>
+</html>

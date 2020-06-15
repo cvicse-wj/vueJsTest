@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<style type="text/css">
+		
+	</style>
+	<!--
+		1.条件渲染指令
+			v-if
+			v-else
+			v-show（原理是display ：none）
+		2.频繁切换，用v-show比较好
+	-->
+	<body>
+		<div id="app">
+			<p v-if="show">哈哈哈哈</p>
+			<p v-else>你是zz</p><br />
+			<span v-if="type==1">i love you</span>
+			<span v-else-if="type==2">i love you 2</span>
+			<span v-else>i love you too!</span>
+			<br/>
+			<span v-show="show">v-show  {{message}}</span><br /> 
+			<span v-show="type!=1">我希望世界和平！  {{message}}</span><br /> 
+			<br />
+			<button @click="show=!show">你看不见我</button>
+			<button @click="type=3">我也愛你</button>
+			
+		</div>
+		<div id="app2">
+			 <span v-bind:title="message">
+			    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+			  </span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const vm=new Vue({
+			el:"#app",
+			data:{
+				type:1,
+				show:true,
+				message:"hello vue!"
+			}
+		});
+		const vm1=new Vue({
+			el:"#app2",
+			data:{
+				message: '页面加载于 ' + new Date().toLocaleString()
+			}
+		});
+	</script>
+</html>

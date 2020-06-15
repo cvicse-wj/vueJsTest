@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="../js/vue.js" type="text/javascript"></script>
+	<body>
+		<div id="app">
+			<span v-if="seen">爱我你怕了吗？</span>
+			<span v-else>可是我不爱你！</span>
+			<br />
+			<button @click="toSeen">{{mes}}</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const vm = new Vue({
+			el:"#app",
+			data:{
+				seen:true,
+				mes:'i love you'
+			},
+			methods:{
+				toSeen(event) {
+					if(this.seen){
+						this.mes='i do not love you'
+					}else{
+						this.mes='i love you'
+					}
+					this.seen=!this.seen;
+				}
+			}
+		});
+	</script>
+</html>

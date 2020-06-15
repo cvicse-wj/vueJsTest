@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<style type="text/css">
+		
+	</style>
+	<body>
+		<div id="app">
+			姓：<input v-model="x"/> <br />
+			名：<input v-model="m"/> <br />
+			姓名：{{x}} {{m}} <br />
+			姓名（单向）：<input v-model="xm"/> <br />
+			姓名（单向）：<input v-model="xm1"/> <br />
+			姓名（双向）：<input v-model="xm2"/> <br />
+		</div>
+		<div id="app2">
+			 <span v-bind:title="message">
+			    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+			  </span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const vm=new Vue({
+			el:"#app",
+			data:{
+				x:"",
+				m:""
+			},
+			computed:{
+				xm() {
+					return this.x + ' ' + this.m
+				},
+				xm1() {
+					
+				},
+				xm2: {
+					 // getter
+					get: function () {
+					  return this.x + ' ' + this.m
+					},
+					// setter
+					set: function (newValue) {
+					  var names = newValue.split(' ')
+					  this.x = names[0]
+					  this.m = names[names.length - 1]
+					}
+				}
+			}
+		});
+		const vm1=new Vue({
+			el:"#app2",
+			data:{
+				message: '页面加载于 ' + new Date().toLocaleString()
+			}
+		});
+	</script>
+</html>
